@@ -4,21 +4,14 @@ defmodule NewRelixir.Plug.Exception do
       use Plug.ErrorHandler
       import NewRelixir.Plug.Exception
 
-      if :code.is_loaded(Phoenix) do
-        defp handle_errors(_conn, %{reason: %Phoenix.Router.NoRouteError{}}) do
-          nil
-        end
+      defp handle_errors(_conn, %{reason: %Phoenix.Router.NoRouteError{}}) do
+        nil
       end
 
-      if :code.is_loaded(Ecto) do
-        defp handle_errors(conn, %{reason: %Ecto.NoResultsError{}}) do
-          nil
-        end
-
-        defp handle_errors(conn, %{reason: %Elixir.Ecto.NoResultsError{}}) do
-          nil
-        end
+      defp handle_errors(conn, %{reason: %Ecto.NoResultsError{}}) do
+        nil
       end
+
 
       defp handle_errors(conn, %{kind: kind, reason: reason} = error) do
         transaction =
