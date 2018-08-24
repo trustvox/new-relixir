@@ -14,6 +14,10 @@ defmodule NewRelixir.Plug.Exception do
         defp handle_errors(conn, %{reason: %Ecto.NoResultsError{}}) do
           nil
         end
+
+        defp handle_errors(conn, %{reason: %Elixir.Ecto.NoResultsError{}}) do
+          nil
+        end
       end
 
       defp handle_errors(conn, %{kind: kind, reason: reason} = error) do
